@@ -43,6 +43,29 @@ app.get("/tasks/:id",(req,res)=>{
   res.json(task);
 });
 
+app.post("/tasks",( req ,res ) => {
+  const {title} = req.body;
+
+  if(!title){
+    return res.status(400).json({
+      message : "Bad request"
+    });
+  }
+
+  const task ={
+    id: inMemoryData+1,
+    title : title,
+    done: false
+  };
+
+  inMemoryData.push(task);
+
+  res.status(201).json(task);
+}); 
+
+
+
+
 app.listen(PORT , () =>{
   console.log(`Server running at  : http://localhost:${PORT}`)
 });

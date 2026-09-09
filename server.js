@@ -63,8 +63,35 @@ app.post("/tasks",( req ,res ) => {
   res.status(201).json(task);
 }); 
 
+app.put("/tasks/:id",( req,res) => {
+  const {id} = req.params;
+  const {title,done} = req.body;
 
+  const task = inMemoryData.find(task => task.id == id );
+  
+  if(!task){
+    return res.status(404).json({
+      message : "TASK NOT FOUND"
+    })
+  }
 
+  if(!title || done == undefined){
+    return res.status(400).json({
+      message : "EMPTY BODY"
+    })
+  }
+  
+  task.title = title,
+  task.done = done
+
+  res.status(200).json({
+    message: "UPDATE SUCCESFULLY",task
+  })
+});
+
+app.delete("/tasks/:id", (req,res)=>{
+
+});
 
 app.listen(PORT , () =>{
   console.log(`Server running at  : http://localhost:${PORT}`)

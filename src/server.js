@@ -64,32 +64,39 @@ app.get("/tasks/:id",(req,res)=>{
   res.json(task);
 });
 
-app.post("/tasks",( req ,res ) => {
-  const {title} = req.body;
+app.post("/tasks", (req, res) => {
+  const { title } = req.body;
 
-  if(!title){
+  if (!title) {
     return res.status(400).json({
-      message : "Bad request"
+      message: "Bad request"
     });
   }
 
-  const task ={
-    id: inMemoryData+1,
-    title : title,
+  const createTask = db.prepare(`
+    INSERT INTO tasks (title, done)
+    VALUES (?, ?)
+  `);
+
+  const result = createTask.run(title, 0);
+
+  const task = {
+    id: result.lastInsertRowid,
+    title: title,
     done: false
   };
 
-  inMemoryData.push(task);
-
   res.status(201).json(task);
-}); 
+});
 
 app.put("/tasks/:id",( req,res) => {
   const {id} = req.params;
   const {title,done} = req.body;
 
-  const task = inMemoryData.find(task => task.id == id );
-  
+  const getTask = db.prepare(`Select * from tasks where id = ?`);
+
+  const task = getTask.get(id);
+
   if(!task){
     return res.status(404).json({
       message : "TASK NOT FOUND"
@@ -102,11 +109,12 @@ app.put("/tasks/:id",( req,res) => {
     })
   }
   
-  task.title = title,
-  task.done = done
+  const createTask = db.prepare(`insert into tasks (title,done) values (?, ?)`)
+
+  createTask.run(title,done);
 
   res.status(200).json({
-    message: "UPDATE SUCCESFULLY",task
+    message: "UPDATE SUCCESFULLY",tasks: task.rows[0]
   })
 });
 

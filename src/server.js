@@ -90,36 +90,41 @@ app.post("/tasks", (req, res) => {
 });
 
 app.put("/tasks/:id",( req,res) => {
-  const {id} = req.params;
-  const {title,done} = req.body;
+ const { id } = req.params;
+let { title, done } = req.body;
 
-  const getTask = db.prepare(`Select * from tasks where id = ?`);
+const getTask = db.prepare(`SELECT * FROM tasks WHERE id = ?`);
+const task = getTask.get(id);
 
-  const task = getTask.get(id);
+if (!task) {
+  return res.status(404).json({
+    message: "TASK NOT FOUND"
+  });
+}
 
-  if(!task){
-    return res.status(404).json({
-      message : "TASK NOT FOUND"
-    })
-  }
+if (!title || done === undefined) {
+  return res.status(400).json({
+    message: "EMPTY BODY"
+  });
+}
 
-  if(!title || done == undefined){
-    return res.status(400).json({
-      message : "EMPTY BODY"
-    })
-  }
+done = done ? 1 : 0;
   
-  const createTask = db.prepare(`insert into tasks (title,done) values (?, ?)`)
+  const createTask = db.prepare(`
+    UPDATE tasks
+    Set title = ?,
+        done = ?
+    where id = ?`)
 
-  createTask.run(title,done);
+  createTask.run(title,done,id);
 
   res.status(200).json({
-    message: "UPDATE SUCCESFULLY",tasks: task.rows[0]
+    message: "UPDATE SUCCESFULLY"
   })
 });
 
 app.delete("/tasks/:id", (req,res)=>{
-
+  
 });
 
 app.listen(PORT , () =>{

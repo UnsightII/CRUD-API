@@ -44,16 +44,20 @@ app.get("/health",(req , res) => {
 });
 
 app.get("/tasks", (req,res) =>{
-  res.json(inMemoryData);
+  const getTasks = db.prepare(`Select * from tasks`).all();
+  res.json(getTasks);
 });
 
 app.get("/tasks/:id",(req,res)=>{
   const {id} = req.params;
 
-  const task = inMemoryData.find(task => task.id == id);
+  const taskId = db.prepare(`select * from tasks where id = ?`);
+
+  const task = taskId.get(id)
+
   if(!task){
     return res.status(404).json({
-      "error": `Task ${id} not found` 
+      "error": `Task not found` 
     })
   }
 

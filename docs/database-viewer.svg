@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="430" viewBox="0 0 920 430" role="img" aria-labelledby="title desc">
+  <title id="title">SQLite database viewer showing the tasks table</title>
+  <desc id="desc">A database viewer style snapshot of the tasks table with three rows.</desc>
+  <rect width="920" height="430" fill="#f4f6f8"/>
+  <rect x="18" y="18" width="884" height="394" rx="6" fill="#ffffff" stroke="#c9d1d9"/>
+  <rect x="18" y="18" width="884" height="48" rx="6" fill="#263238"/>
+  <circle cx="42" cy="42" r="6" fill="#ff6b6b"/>
+  <circle cx="62" cy="42" r="6" fill="#ffd166"/>
+  <circle cx="82" cy="42" r="6" fill="#72d572"/>
+  <text x="108" y="48" fill="#ffffff" font-family="Segoe UI, sans-serif" font-size="18" font-weight="600">SQLite Database Viewer</text>
+  <rect x="38" y="86" width="164" height="292" fill="#eef1f4"/>
+  <text x="56" y="116" fill="#56616b" font-family="Segoe UI, sans-serif" font-size="14" font-weight="600">DATABASE</text>
+  <text x="56" y="150" fill="#263238" font-family="Segoe UI, sans-serif" font-size="15">tasks.db</text>
+  <text x="72" y="184" fill="#1f6feb" font-family="Segoe UI, sans-serif" font-size="15" font-weight="600">tasks</text>
+  <text x="72" y="216" fill="#56616b" font-family="Segoe UI, sans-serif" font-size="14">Columns</text>
+  <text x="88" y="246" fill="#56616b" font-family="Segoe UI, sans-serif" font-size="14">id</text>
+  <text x="88" y="274" fill="#56616b" font-family="Segoe UI, sans-serif" font-size="14">title</text>
+  <text x="88" y="302" fill="#56616b" font-family="Segoe UI, sans-serif" font-size="14">done</text>
+  <text x="232" y="116" fill="#263238" font-family="Segoe UI, sans-serif" font-size="17" font-weight="600">tasks</text>
+  <text x="232" y="140" fill="#6a737d" font-family="Segoe UI, sans-serif" font-size="13">3 rows</text>
+  <rect x="232" y="160" width="632" height="42" fill="#e8edf2"/>
+  <g fill="#263238" font-family="Consolas, monospace" font-size="14" font-weight="600">
+    <text x="250" y="186">id</text><text x="330" y="186">title</text><text x="760" y="186">done</text>
+  </g>
+  <g fill="#263238" font-family="Consolas, monospace" font-size="14">
+    <text x="250" y="232">1</text><text x="330" y="232">Learn SQLite</text><text x="760" y="232">0</text>
+    <text x="250" y="276">2</text><text x="330" y="276">Build CRUD API</text><text x="760" y="276">0</text>
+    <text x="250" y="320">3</text><text x="330" y="320">Test the API</text><text x="760" y="320">0</text>
+  </g>
+  <path d="M232 246h632M232 290h632M232 334h632M300 160v174M744 160v174" stroke="#d8dee4"/>
+</svg>

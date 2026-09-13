@@ -123,10 +123,31 @@ done = done ? 1 : 0;
   })
 });
 
-app.delete("/tasks/:id", (req,res)=>{
-  
+app.delete("/tasks/:id", (req, res) => {
+  const { id } = req.params;
+
+  const deleteTask = db.prepare(`
+    DELETE FROM tasks
+    WHERE id = ?
+  `);
+
+  const result = deleteTask.run(id);
+
+  if (result.changes === 0) {
+    return res.status(404).json({
+      message: "TASK NOT FOUND"
+    });
+  }
+
+  res.status(200).json({
+    message: "DELETED SUCCESSFULLY"
+  });
 });
 
 app.listen(PORT , () =>{
   console.log(`Server running at  : http://localhost:${PORT}`)
 });
+
+// setInterval(() => {
+//   console.log("server alive");
+// }, 1000);

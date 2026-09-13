@@ -1,18 +1,35 @@
 const express = require("express");
+const Database = require("better-sqlite3");
+
+const db = new Database("tasks.db");
+
+const createTable = db.prepare(`
+  CREATE TABLE IF NOT EXISTS tasks (
+    id INTEGER PRIMARY KEY,
+    title TEXT,
+    done BOOLEAN
+  )
+`);
+
+createTable.run();
+
+const count = db
+  .prepare(`SELECT COUNT(*) AS count FROM tasks`)
+  .get();
+
+if (count.count === 0) {
+  const insertTask = db.prepare(`
+    INSERT INTO tasks (title, done)
+    VALUES (?, ?)
+  `);
+
+  insertTask.run("Learn SQLite", 0);
+  insertTask.run("Build CRUD API", 0);
+  insertTask.run("Test the API", 0);
+}
 
 const app = express();
 
-const inMemoryData = [{
-  id: 1, title: "CREATE",done:false
-}
-,
-{
-  id:2, title: "POST", done: true
-}
-,
-{
-  id:3, title: "DELETE" , done: false
-}]
 
 const PORT = process.env.PORT || 3000;
 
